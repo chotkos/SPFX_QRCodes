@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "barcodes-field-customizer": {
+      "components": [
+        {
+          "entrypoint": "./lib/extensions/barcodes/BarcodesFieldCustomizer.js",
+          "manifest": "./src/extensions/barcodes/BarcodesFieldCustomizer.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "BarcodesFieldCustomizerStrings": "lib/extensions/barcodes/loc/{locale}.js"
+  }
+}
