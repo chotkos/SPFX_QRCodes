@@ -35,7 +35,7 @@ export default class BarcodesFieldCustomizer
     //@Prezentacja3 For listItem
     if(filerRef.indexOf('.000')!= -1){
       let Id =  event.listItem['_values'].get('ID');
-      text = `https://chotkos.sharepoint.com/Lists/SPFX_Tweets/DispForm.aspx?ID=${Id}`
+      text = `${this.context.pageContext.site.absoluteUrl}/Lists/SPFX_Tweets/DispForm.aspx?ID=${Id}`
     }
 
     //@Prezentacja4 Reference to parent container
