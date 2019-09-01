@@ -26,6 +26,7 @@ export default class Barcodes extends React.Component<IBarcodesProps, {}> {
 
   @override
   public render(): React.ReactElement<{}> {
+    //@Prezentacja6 Render QR
     return (
       <div className={styles.cell} onClick={this.downloadCanvas} >   
         <QRCode           
@@ -37,12 +38,10 @@ export default class Barcodes extends React.Component<IBarcodesProps, {}> {
     );
   }
 
+  //@Prezentacja7 Download image
   downloadCanvas(e){    
     console.log('CLICKED', e.target);
-    //let url = e.target.toDataURL("png");
     const win = window.open();    
-
-    //win.document.firstChild.appendChild(e.target);
 
     var newCanvas = win.document.createElement('canvas');
     var context = newCanvas.getContext('2d');
