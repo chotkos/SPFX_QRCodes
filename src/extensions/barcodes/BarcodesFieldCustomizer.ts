@@ -10,14 +10,8 @@ import {
 
 import * as strings from 'BarcodesFieldCustomizerStrings';
 import Barcodes, { IBarcodesProps } from './components/Barcodes';
-
-/**
- * If your field customizer uses the ClientSideComponentProperties JSON input,
- * it will be deserialized into the BaseExtension.properties object.
- * You can define an interface to describe it.
- */
-export interface IBarcodesFieldCustomizerProperties {
-  // This is an example; replace with your own property
+ 
+export interface IBarcodesFieldCustomizerProperties { 
   sampleText?: string;
 }
 
@@ -27,12 +21,7 @@ export default class BarcodesFieldCustomizer
   extends BaseFieldCustomizer<IBarcodesFieldCustomizerProperties> {
 
   @override
-  public onInit(): Promise<void> {
-    // Add your custom initialization to this method.  The framework will wait
-    // for the returned promise to resolve before firing any BaseFieldCustomizer events.
-    Log.info(LOG_SOURCE, 'Activated BarcodesFieldCustomizer with properties:');
-    Log.info(LOG_SOURCE, JSON.stringify(this.properties, undefined, 2));
-    Log.info(LOG_SOURCE, `The following string should be equal: "BarcodesFieldCustomizer" and "${strings.Title}"`);
+  public onInit(): Promise<void> { 
     return Promise.resolve();
   }
 
@@ -41,11 +30,20 @@ export default class BarcodesFieldCustomizer
     // Use this method to perform your custom cell rendering.
     console.log('RENDERING CELL', event, this.properties);
 
+    //For files
     let filerRef = event.listItem['_values'].get('FileRef'); 
+    let text: string = this.context.pageContext.site.absoluteUrl + filerRef;
 
-    const text: string = this.context.pageContext.site.absoluteUrl + filerRef;
+    //For listItem
+    if(filerRef.indexOf('.000')!=-0){
+      let Id =  event.listItem['_values'].get('ID');
+      text = `https://chotkos.sharepoint.com/Lists/SPFX_Tweets/DispForm.aspx?ID=${Id}`
+    }
+
+    //Reference to parent container
     let parentElement = event.domElement;
 
+    //Let it go!
     const barcodes: React.ReactElement<{}> =
       React.createElement(Barcodes, { text, parentElement } as IBarcodesProps);
 
@@ -53,10 +51,7 @@ export default class BarcodesFieldCustomizer
   }
 
   @override
-  public onDisposeCell(event: IFieldCustomizerCellEventParameters): void {
-    // This method should be used to free any resources that were allocated during rendering.
-    // For example, if your onRenderCell() called ReactDOM.render(), then you should
-    // call ReactDOM.unmountComponentAtNode() here.
+  public onDisposeCell(event: IFieldCustomizerCellEventParameters): void { 
     ReactDOM.unmountComponentAtNode(event.domElement);
     super.onDisposeCell(event);
   }
