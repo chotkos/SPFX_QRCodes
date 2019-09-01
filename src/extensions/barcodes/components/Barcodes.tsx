@@ -31,7 +31,7 @@ export default class Barcodes extends React.Component<IBarcodesProps, {}> {
         <QRCode           
           value={this.props.text} 
           renderAs="canvas"
-          size="96"                          
+          size={96}                          
           />
       </div>
     );
